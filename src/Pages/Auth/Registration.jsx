@@ -22,6 +22,7 @@ const Register = () => {
         console.log(result.user);
         updateUserProfile(displayName, photoURL);
         toast.success('User created successfully!', { id: 'create-user' });
+        navigate('/')
       })
       .catch(error => {
         console.log(error);

@@ -71,11 +71,11 @@ const NavBar = () => {
             </NavLink>
           </li>
 
-          <li>
+          {/* <li>
             <NavLink to={'/profile'}>
               <FaUser /> Profile
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="navbar-end gap-3">
