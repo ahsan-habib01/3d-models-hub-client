@@ -9,11 +9,15 @@ import PrivateRoute from './PrivateRoute';
 import AddModel from '../Pages/AddModel/AddModel';
 import ModelDetails from '../Pages/ModelDetails/ModelDetails';
 import UpdateModel from '../Pages/UpdateModel/UpdateModel';
+import Loading from '../components/Loading';
+import ErrorPage from './../components/ErrorPage';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
+    hydrateFallbackElement: <Loading></Loading>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: '/',
