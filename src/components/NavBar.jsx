@@ -11,7 +11,7 @@ import { AuthContext } from '../context/AuthContext';
 const NavBar = () => {
   const { user, signOutUser } = use(AuthContext);
   return (
-    <div className="navbar py-0 min-h-0 z-1 shadow-sm rounded-full glass-card max-w-7xl">
+    <div className="navbar py-0 min-h-0 z-10 shadow-sm rounded-full glass-card max-w-7xl sticky top-0">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
