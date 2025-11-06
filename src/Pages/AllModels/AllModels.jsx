@@ -6,7 +6,7 @@ const AllModels = () => {
   // console.log(data);
 
   return (
-    <div>
+    <div className='mx-2'>
       <div className="text-2xl text-center font-bold"> All Models</div>
       <p className=" text-center mb-10 ">Explore 3d models.</p>
 

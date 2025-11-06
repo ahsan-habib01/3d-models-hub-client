@@ -11,6 +11,7 @@ import ModelDetails from '../Pages/ModelDetails/ModelDetails';
 import UpdateModel from '../Pages/UpdateModel/UpdateModel';
 import Loading from '../components/Loading';
 import ErrorPage from './../components/ErrorPage';
+import MyModels from '../Pages/MyModels/MyModels';
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddModel />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: '/my-models',
+        element: (
+          <PrivateRoute>
+            <MyModels />
           </PrivateRoute>
         ),
       },

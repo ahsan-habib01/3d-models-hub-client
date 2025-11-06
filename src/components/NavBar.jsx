@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router';
-import { IoLogoModelS } from 'react-icons/io';
+import { IoIosCreate, IoLogoModelS } from 'react-icons/io';
 import { GoHomeFill } from 'react-icons/go';
 import { IoLogIn, IoLogOut } from 'react-icons/io5';
 import { FaGear, FaUser } from 'react-icons/fa6';
@@ -108,6 +108,11 @@ const NavBar = () => {
               <li className="mt-3">
                 <Link to={'/profile'}>
                   <FaUser /> Profile
+                </Link>
+              </li>
+              <li className="">
+                <Link to={'/my-models'}>
+                  <IoIosCreate /> My Models
                 </Link>
               </li>
               <li>
