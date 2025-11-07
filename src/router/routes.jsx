@@ -12,6 +12,7 @@ import UpdateModel from '../Pages/UpdateModel/UpdateModel';
 import Loading from '../components/Loading';
 import ErrorPage from './../components/ErrorPage';
 import MyModels from '../Pages/MyModels/MyModels';
+import MyDownloads from '../Pages/MyDownloads/MyDownloads';
 
 export const router = createBrowserRouter([
   {
@@ -23,12 +24,12 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
-        loader: () => fetch('http://localhost:3000/latest-models'),
+        loader: () => fetch('http://localhost:5000/latest-models'),
       },
       {
         path: '/all-models',
         element: <AllModels />,
-        loader: () => fetch('http://localhost:3000/models'),
+        loader: () => fetch('http://localhost:5000/models'),
       },
       {
         path: '/profile',
@@ -55,6 +56,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: '/my-downloads',
+        element: (
+          <PrivateRoute>
+            <MyDownloads />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: '/model-details/:id',
         element: (
           <PrivateRoute>
@@ -71,7 +80,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/models/${params.id}`),
+          fetch(`http://localhost:5000/models/${params.id}`),
       },
       {
         path: '/auth/login',

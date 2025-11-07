@@ -17,7 +17,7 @@ const UpdateModel = () => {
       thumbnail: e.target.thumbnail.value,
     };
 
-    fetch(`http://localhost:3000/models/${model._id}`, {
+    fetch(`http://localhost:5000/models/${model._id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

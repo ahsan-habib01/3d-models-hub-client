@@ -2,7 +2,7 @@ import { Link, NavLink } from 'react-router';
 import { IoIosCreate, IoLogoModelS } from 'react-icons/io';
 import { GoHomeFill } from 'react-icons/go';
 import { IoLogIn, IoLogOut } from 'react-icons/io5';
-import { FaGear, FaUser } from 'react-icons/fa6';
+import { FaDownload, FaGear, FaUser } from 'react-icons/fa6';
 import { LuRotate3D } from 'react-icons/lu';
 import { ImBoxAdd } from 'react-icons/im';
 import { use } from 'react';
@@ -113,6 +113,11 @@ const NavBar = () => {
               <li className="">
                 <Link to={'/my-models'}>
                   <IoIosCreate /> My Models
+                </Link>
+              </li>
+              <li className="">
+                <Link to={'/my-downloads'}>
+                  <FaDownload /> My Downloads
                 </Link>
               </li>
               <li>

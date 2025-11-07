@@ -3,15 +3,17 @@ import { Link, useNavigate, useParams } from 'react-router';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../context/AuthContext';
 import Loading from '../../components/Loading';
+import toast from 'react-hot-toast';
 
 const ModelDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user, loading, setLoading } = use(AuthContext);
   const [model, setModel] = useState({});
+  const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/models/${id}`, {
+    fetch(`http://localhost:5000/models/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -22,7 +24,7 @@ const ModelDetails = () => {
         setModel(data);
         setLoading(false);
       });
-  }, [id, user, setLoading]);
+  }, [id, user, setLoading, refetch]);
 
   const handleDelete = () => {
     Swal.fire({
@@ -35,7 +37,7 @@ const ModelDetails = () => {
       confirmButtonText: 'Yes, delete it!',
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/models/${model._id}`, {
+        fetch(`http://localhost:5000/models/${model._id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -59,9 +61,53 @@ const ModelDetails = () => {
     });
   };
 
+  const handleDownload = () => {
+    const finalModel = {
+      name: model.name,
+      downloads: model.downloads,
+      created_by: model.created_by,
+      description: model.description,
+      thumbnail: model.thumbnail,
+      created_at: new Date(),
+      downloaded_by: user.email,
+    };
+
+    fetch(`http://localhost:5000/downloads/${model._id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(finalModel),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        toast.success('Successfully downloaded!');
+        setRefetch(!refetch);
+
+        //? alternative solution of realtime download count update
+        //     fetch(`https://3d-model-server.vercel.app/models/${id}`, {
+        //   headers: {
+        //     authorization: `Bearer ${user.accessToken}`,
+        //   },
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     setModel(data.result);
+        //     console.log(" Api called!")
+        //     console.log(data);
+        //     setLoading(false);
+        //   });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   if (loading) {
     return <Loading></Loading>;
   }
+
   return (
     <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
@@ -81,8 +127,13 @@ const ModelDetails = () => {
             </h1>
 
             {/* Category Badge */}
-            <div className="badge badge-lg badge-outline text-pink-600 border-pink-600 font-medium">
-              {model.category}
+            <div className="flex gap-5">
+              <div className="badge badge-lg badge-outline text-pink-600 border-pink-600 font-medium">
+                {model.category}
+              </div>
+              <div className="badge badge-lg badge-outline text-pink-600 border-pink-600 font-medium">
+                Downloaded: {model.downloads}
+              </div>
             </div>
 
             {/* Description */}
@@ -98,7 +149,10 @@ const ModelDetails = () => {
               >
                 Update Model
               </Link>
-              <button className="btn btn-secondary rounded-full">
+              <button
+                onClick={handleDownload}
+                className="btn btn-secondary rounded-full"
+              >
                 Download
               </button>
               <button
